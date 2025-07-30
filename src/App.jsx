@@ -31,7 +31,48 @@ function App(){
 
 
 
+  const novoGasto = {
+    id: Date.now(), //usando timestamp como id
+    nome: nomeGasto,
+    preco: precoNumero,
+  };
 
+
+  // função para deletar um gasto pelo seu ID
+  const deletarGasto = (idParaDeletar) => {  
+    const novaLista = gastos.filter(gasto => gasto.id !== idParaDeletar);// filtro a lista mantendo apenas os gastos cujo id é diferente do que quero deletar
+    setGastos(novaLista);
+  }
+
+  //funcao para editar um gasto
+  const editarGasto = (idParaEditar) => { // encontra o gasto especifico que queremos editar
+    const gastoParaEditar = gastos.find(gasto => gasto.id === idParaEditar); //o .find() serve para procurar o gasto com o id igual ao que foi passado
+    if(!gastoParaEditar) return;
+  }
+
+
+//--------------------
+
+
+  // pede os novos valores ao usuário
+  const novoNome = prompt("Novo nome: ", gastoParaEditar.nome);
+  const novoPrecoString = prompt("Novo preço: ", gastoParaEditar.preco.toString().replace('.',','));
+
+  const nomeAtualizado = novoNome !== null && novoNome.trim() !== ''
+    ? novoNome.trim() //usa esse valor se deu certo
+    : gastoParaEditar.nome; //se deu errado mantem o nome anterior
+
+
+  //valida e atualiza o preço
+  let precoAtualizado = gastoParaEditar.preco;
+  if(novoPrecoString !== null && novoPrecoString.trim() !== ''){
+    const novoPrecoNum = parseFloat(novoPrecoString.replace(',', "."));
+    if(!isNaN(novoPrecoNum) && novoPrecoNum >= 0){
+      precoAtualizado = novoPrecoNum;
+    }
+    else{
+      alert("Valor do preço inválido. O preço não foi alterado.");
+  }
 
 
   }
