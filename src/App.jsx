@@ -101,9 +101,43 @@ function App(){
 
 
 
-  return (
-    <div></div>
+return (
+    <div className="container">
+      <h1>Controle de Gastos</h1>
+      
+      <div className="gasto">
+        <h1>Total de Gastos</h1>
+        <span id="gasto">
+          R$ {total.toFixed(2).replace('.', ',')}
+        </span>
+      </div>
+
+      <input
+        type="text"
+        id="taskInput"
+        placeholder="Com o que você gastou?"
+        value={nomeGasto}
+        onChange={(e) => setNomeGasto(e.target.value)}
+      />
+      <button onClick={adicionarGasto}>Adicionar</button>
+      
+      <ul id="taskList">
+        {gastos.map((gasto) => (
+          <li key={gasto.id}>
+            <span>{gasto.nome}</span>
+            <span className="preco">
+                R${gasto.preco.toFixed(2).replace('.', ',')}
+            </span>
+            <div>
+                <button className="editButton" onClick={() => editarGasto(gasto.id)}>Editar</button>
+                <button className="deleteButton" onClick={() => deletarGasto(gasto.id)}>Remover</button>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
+
 
 export default App;
